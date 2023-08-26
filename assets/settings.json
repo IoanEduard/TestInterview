@@ -1,0 +1,6 @@
+{
+    "SourcePath": "source/path",
+    "ReplicaPath": "replica/path",
+    "LoggerPath": "logger/path",
+    "Interval": 5
+}

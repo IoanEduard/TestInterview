@@ -1,0 +1,25 @@
+Features
+
+Console menu
+1. Setup 
+    Source Path
+    Replica Path
+    Log file Path
+    Update Interval
+2. Sync manually
+
+Functions
+    Save/update setup on a json file
+    Detect copy/create/delete files in the source folder
+    Log copy/create/delete files 
+    Log when syncronization happened and file names 
+
+
+    Switch menus between
+    test if all functions are reached
+    git the scheleton
+
+    do the settings
+    add unit testing
+
+    Sunday - Do the synchronization.
