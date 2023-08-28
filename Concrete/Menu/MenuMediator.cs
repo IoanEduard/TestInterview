@@ -21,13 +21,11 @@ namespace task.Concrete.Menu
 
         public void ShowMainMenu()
         {
-            // _setupMenu.Hide();
             _mainMenu.DisplayMenu();
         }
 
         public void ShowSetupMenu()
         {
-            // _mainMenu.Hide();
             _setupMenu.DisplayMenu();
         }
     }

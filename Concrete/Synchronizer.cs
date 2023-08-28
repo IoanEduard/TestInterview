@@ -11,30 +11,51 @@ namespace Concrete.Synchronizer
         private Settings _settings;
         private ILogger _logger;
         private IDisplay _display;
+        private int _count;
         public Synchronizer(Settings settings, ILogger logger, IDisplay display)
         {
             _settings = settings;
             _logger = logger;
             _display = display;
+            _count = 0;
         }
 
-        public void ScheduledSync()
+        public async Task ExecuteScheduledAsync()
         {
-            throw new NotImplementedException();
+            using CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            CancellationToken cancellationToken = cancellationTokenSource.Token;
+            
+            // it does pick up only ctrl + c
+            Console.CancelKeyPress += (sender, eventArgs) =>
+            {
+                _logger.LogAction("\nProgram terminated!\n Synchronization unavailable!");
+                cancellationTokenSource.Cancel();
+            };
+
+            await ScheduledSync(cancellationToken);
         }
 
-        public void Sync()
+        public void ManualSync() => Sync();
+
+        private async Task ScheduledSync(CancellationToken cancellationToken)
         {
-            var sourcePath = @_settings.SourcePath;
-            var replicaPath = @_settings.ReplicaPath;
+            while (true)
+            {
+                Sync();
 
-            var sourceFilePaths = Directory.GetFiles(sourcePath);
-            var sourceFilesInfo = MapFiles(sourceFilePaths);
+                var message = $"Automatic synchronization done. Files ({_count}) updated!";
+                _display.Show(message);
+                _logger.LogAction(message);
+                _count = 0;
 
-            var replicaFiles = Directory.GetFiles(replicaPath);
-            var replicaFilesInfo = MapFiles(replicaFiles);
+                await Task.Delay(TimeSpan.FromMilliseconds(_settings.Interval), cancellationToken);
+            }
+        }
 
-            var filesStatus = PopulateFileStatusDictionary(sourceFilesInfo, replicaFilesInfo);
+        private void Sync()
+        {
+            var files = GetFiles();
+            var filesStatus = PopulateFileStatusDictionary(files.sourceFilesInfo, files.replicaFilesInfo);
 
             foreach (var item in filesStatus)
             {
@@ -44,11 +65,12 @@ namespace Concrete.Synchronizer
                 if (status == 1)
                 {
                     var fileToUpdate = file.Path;
-                    var destinationFilePath = Path.Combine(replicaPath, Path.GetFileName(fileToUpdate));
+                    var destinationFilePath = Path.Combine(@_settings.ReplicaPath, Path.GetFileName(fileToUpdate));
 
                     try
                     {
                         File.Copy(fileToUpdate, destinationFilePath, true);
+                        _count++;
 
                         var message = $"{file.Name} updated successfully!";
                         _display.Show(message);
@@ -68,6 +90,7 @@ namespace Concrete.Synchronizer
                     {
                         File.Delete(file.Path);
                         filesStatus.Remove(item.Key);
+                        _count++;
 
                         var message = $"{file} from replica removed since is no longer in the source folder";
                         _display.Show(message);
@@ -136,6 +159,20 @@ namespace Concrete.Synchronizer
             }
 
             return synchronizedFiles;
+        }
+
+        private (List<SynchronizedFile> sourceFilesInfo, List<SynchronizedFile> replicaFilesInfo) GetFiles()
+        {
+            var sourcePath = @_settings.SourcePath;
+            var replicaPath = @_settings.ReplicaPath;
+
+            var sourceFilePaths = Directory.GetFiles(sourcePath);
+            var sourceFilesInfo = MapFiles(sourceFilePaths);
+
+            var replicaFiles = Directory.GetFiles(replicaPath);
+            var replicaFilesInfo = MapFiles(replicaFiles);
+
+            return (sourceFilesInfo, replicaFilesInfo);
         }
 
     }

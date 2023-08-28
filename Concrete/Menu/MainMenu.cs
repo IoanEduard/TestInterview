@@ -39,7 +39,7 @@ namespace Concrete.Menu.ApplicationMenu
                             Clear();
                             break;
                         case (int)MenuEnum.SyncNow:
-                            _sync.Sync();
+                            _sync.ManualSync();
                             var message = "Replica was synchronized manually";
                             _display.Show(message);
                             _logger.LogAction(message);

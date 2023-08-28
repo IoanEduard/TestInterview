@@ -63,7 +63,7 @@ namespace Concrete.Setup
                         _settings.LoggerPath = userInput;
                         break;
                     case SetupOptions.Interval:
-                        _settings.Interval = userInput;
+                        // _settings.Interval = userInput;
                         break;
                 }
 
