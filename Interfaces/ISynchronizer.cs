@@ -2,6 +2,7 @@ namespace Interfaces.Synchronizer
 {
     public interface ISynchronizer
     {
-        void SyncNow();
+        void Sync();
+        void ScheduledSync();
     }
 }

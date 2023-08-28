@@ -23,3 +23,30 @@ Functions
     add unit testing
 
     Sunday - Do the synchronization.
+
+
+    Things done so far:
+    MainMenu, 
+    SetupMenu
+    Updating paths via console
+    Validation path
+    All methods get called
+
+    Left to do
+    File synchronization
+    On program start perform synchronization
+    Scheduled synchronization - Use interval in settings
+    Loggin actions
+
+
+
+Add the Logging Logic 
+Log template: mm/dd/yyyy action 
+
+More TODO
+Use a timer for a scheduled syncronization
+
+
+
+
+    

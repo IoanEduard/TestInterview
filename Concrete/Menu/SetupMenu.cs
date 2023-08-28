@@ -1,7 +1,6 @@
 using System.Text;
 using Interfaces.Logger;
 using Interfaces.Setup;
-using Interfaces;
 using task.models;
 using task.Interfaces;
 using static System.Console;
@@ -29,6 +28,7 @@ namespace task.Concrete.Menu
 
         public void DisplayMenu()
         {
+             Clear();
             _display.Show(OpenSetupMenu());
 
             while (_setupMenuVisible)
@@ -38,42 +38,53 @@ namespace task.Concrete.Menu
                     switch (option)
                     {
                         case (int)SetupMenuEnum.SourcePath:
-                            _setup.SetSourcePath(""); // later
-                            _logger.LogAction(); // later
+                            if (_setup.SetSourcePath())
+                                SuccessAction();
+                            else FailedAction("Failed to update source file path!");
                             break;
                         case (int)SetupMenuEnum.ReplicaPath:
-                            _setup.SetReplicaPath("ReplicaPath"); // later
-                            _logger.LogAction(); // later
+                            if (_setup.SetReplicaPath())
+                                SuccessAction();
+                            else FailedAction("Failed to update replica file path!");
                             break;
                         case (int)SetupMenuEnum.LogFilePath:
-                            _setup.SetLoggerPath("LoggerPath"); // later
-                            _logger.LogAction(); // later
+                            if (_setup.SetLoggerPath())
+                                SuccessAction();
+                            else FailedAction("Failed to update logger file path!");
                             break;
-                        case (int)SetupMenuEnum.DisplayLogs:
-                            _setup.SetInterval(5); // later
-                            _logger.LogAction(); // later
+                        case (int)SetupMenuEnum.Interval:
+                            if (_setup.SetInterval())
+                                SuccessAction();
+                            else FailedAction("Failed to update interval");
                             break;
                         case (int)SetupMenuEnum.MainMenu:
                             _menuMediator.ShowMainMenu();
-                            Hide();
+                            Clear();
                             _setupMenuVisible = false;
                             break;
                         case (int)SetupMenuEnum.Exit:
-                            _setupMenuVisible = false;
+                            Environment.Exit(0);
                             break;
                     }
                 }
                 else _display.Show("Invalid input");
             }
         }
-        public void Hide()
+
+        private void SuccessAction()
         {
-            if (!IsOutputRedirected)
-                Clear();
+            _logger.LogAction();
+            _display.Show(OpenSetupMenu());
+        }
+
+        private void FailedAction(string message)
+        {
+            _display.Show(message);
         }
 
         private string OpenSetupMenu()
         {
+            Clear();
             _setupMenuVisible = true;
             var sr = new StringBuilder();
             sr.Append("MENU\t\t\t\n");
@@ -83,6 +94,7 @@ namespace task.Concrete.Menu
             sr.Append($"2. Set Logger Path ({_settings.ReplicaPath})\n");
             sr.Append($"3. Update interval ({_settings.Interval})\n");
             sr.Append($"4. Main Menu\n");
+            sr.Append($"5. Exit\n");
 
             return sr.ToString();
         }

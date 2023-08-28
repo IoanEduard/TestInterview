@@ -7,10 +7,10 @@ using task.Concrete.Menu;
 using task.models;
 
 var display = new Display();
-var synchronizer = new Synchronizer();
-var logger = new Logger();
-var setup = new Setup();
 var settings = new Settings();
+var synchronizer = new Synchronizer(settings);
+var logger = new Logger();
+var setup = new Setup(settings, display);
 
 var menuMediator = new MenuMediator(display, synchronizer, logger, setup, settings);
 

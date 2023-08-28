@@ -1,6 +1,6 @@
 {
-    "SourcePath": "source/path",
-    "ReplicaPath": "replica/path",
-    "LoggerPath": "logger/path",
-    "Interval": 5
+  "SourcePath": "C:\\Users\\Eduard\\Desktop\\task\\ThePath\\Source",
+  "ReplicaPath": "C:\\Users\\Eduard\\Desktop\\task\\ThePath\\Replica",
+  "LoggerPath": "C:\\Users\\Eduard\\Desktop\\task\\ThePath\\Logger",
+  "Interval": "44"
 }

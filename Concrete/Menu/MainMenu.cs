@@ -3,6 +3,7 @@ using Interfaces.ApplicationMenu;
 using Interfaces.Logger;
 using Interfaces.Synchronizer;
 using task.Interfaces;
+using static System.Console;
 
 namespace Concrete.Menu.ApplicationMenu
 {
@@ -23,36 +24,35 @@ namespace Concrete.Menu.ApplicationMenu
 
         public void DisplayMenu()
         {
+            if (!IsOutputRedirected) Clear();
             _display.Show(OpenMenu());
 
             while (_mainMenuVisible)
             {
-                if (int.TryParse(Console.ReadLine(), out int option))
+                if (int.TryParse(ReadLine(), out int option))
                 {
                     switch (option)
                     {
                         case (int)MenuEnum.Setup:
                             _menuMediator.ShowSetupMenu();
                             _mainMenuVisible = false;
-                            Hide();
+                            Clear();
                             break;
                         case (int)MenuEnum.SyncNow:
-                            _sync.SyncNow();
+                            _sync.Sync();
                             break;
                         case (int)MenuEnum.DisplayLogs:
                             _logger.DisplayLogs();
                             break;
                         case (int)MenuEnum.Exit:
-                            _mainMenuVisible = false;
-                            Hide();
+                            Environment.Exit(0);
+                            Clear();
                             break;
                     }
                 }
                 else _display.Show("Invalid input");
             }
         }
-
-        public void Hide() => Console.Clear();
 
         private string OpenMenu()
         {
@@ -68,8 +68,3 @@ namespace Concrete.Menu.ApplicationMenu
         }
     }
 }
-
-// so in the menu I just display current settings. 
-// hard written now, then from a json file.
-
-// in a setup file I will do the changes.

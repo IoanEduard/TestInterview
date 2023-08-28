@@ -1,0 +1,19 @@
+Manual tests for manual synchronization:
+1. Add two files in the source, leave empty the replica
+    - it should generate two files that are present in the source
+2. Edit one file in the source
+    - it should update the said file in the replica
+2.1 Edit a file in replica, source should update with its version
+3. Delete one file from replica
+    - it should add again the file from source
+4. Delete one file from the source
+    - dictionary should have the file from the replica marked with -1
+    - file should be deleted from the replica
+    - dictionary should not contain the file info once its delete in the directory
+
+Testing synchronization:
+Test 1: Passed
+Test 2: Passed
+Test 2.1: Passed
+Test 3: Passed
+Test 4: Passed

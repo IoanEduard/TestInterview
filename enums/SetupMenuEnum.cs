@@ -3,7 +3,7 @@ public enum SetupMenuEnum
     SourcePath,
     ReplicaPath,
     LogFilePath,
-    DisplayLogs,
+    Interval,
     MainMenu,
     Exit
 }
