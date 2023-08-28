@@ -37,16 +37,19 @@ namespace task.Concrete.Menu
                     switch (option)
                     {
                         case (int)SetupMenuEnum.SourcePath:
+                            _display.Show("Only absolute paths accepted\n");
                             if (_setup.SetSourcePath())
                                 SuccessAction("SourcePath updated successfully!");
                             else FailedAction("Failed to SourcePath file path!");
                             break;
                         case (int)SetupMenuEnum.ReplicaPath:
+                            _display.Show("Only absolute paths accepted\n");
                             if (_setup.SetReplicaPath())
                                 SuccessAction("ReplicaPath updated successfully!");
                             else FailedAction("Failed to ReplicaPath file path!");
                             break;
                         case (int)SetupMenuEnum.LogFilePath:
+                            _display.Show("Only absolute paths accepted\n");
                             if (_setup.SetLoggerPath())
                                 SuccessAction("LoggerPath updated successfully!");
                             else FailedAction("Failed to update LoggerPath path!");
@@ -62,6 +65,7 @@ namespace task.Concrete.Menu
                             _setupMenuVisible = false;
                             break;
                         case (int)SetupMenuEnum.Exit:
+                            _logger.LogAction("\nProgram terminated!\n Synchronization unavailable!");
                             Environment.Exit(0);
                             break;
                     }

@@ -14,6 +14,7 @@ namespace Concrete.Setup
         private Settings _settings;
         private IDisplay _display;
         private ILogger _logger;
+        private readonly string _windowsFilePathSystemPattern = @"^[a-zA-Z]:\\(((?![<>:""/\\|?*]).)+((?<![ .])\\)?)*$";
         public Setup(Settings settings, IDisplay display, ILogger logger)
         {
             _settings = settings;
@@ -43,40 +44,45 @@ namespace Concrete.Setup
 
         private bool UpdateJsonSettingsFile(SetupOptions option)
         {
-            _display.Show("Only absolute paths accepted\n");
+
             var userInput = ReadLine();
             var optionAsString = Enum.GetName(typeof(SetupOptions), option);
 
-            var windowsFilePathSystemPattern = @"^[a-zA-Z]:\\(((?![<>:""/\\|?*]).)+((?<![ .])\\)?)*$";
-
-            if (Regex.IsMatch(userInput, windowsFilePathSystemPattern))
+            switch (option)
             {
-                switch (option)
-                {
-                    case SetupOptions.SourcePath:
+                case SetupOptions.SourcePath:
+                    if (PathIsValid(userInput))
                         _settings.SourcePath = userInput;
-                        break;
-                    case SetupOptions.ReplicaPath:
+                    break;
+                case SetupOptions.ReplicaPath:
+                    if (PathIsValid(userInput))
                         _settings.ReplicaPath = userInput;
-                        break;
-                    case SetupOptions.LoggerPath:
+                    break;
+                case SetupOptions.LoggerPath:
+                    if (PathIsValid(userInput))
                         _settings.LoggerPath = userInput;
-                        break;
-                    case SetupOptions.Interval:
-                        // _settings.Interval = userInput;
-                        break;
-                }
-
-                var content = File.ReadAllText(_settings.FilePath);
-                var jsonObject = JObject.Parse(content);
-
-                jsonObject[optionAsString] = userInput;
-                var updatedFile = jsonObject.ToString();
-
-                File.WriteAllText(_settings.FilePath, updatedFile);
-
-                return true;
+                    break;
+                case SetupOptions.Interval:
+                    if (IntervalIsValid(userInput, out long milliseconds))
+                        _settings.Interval = milliseconds;
+                    break;
             }
+
+            var content = File.ReadAllText(_settings.FilePath);
+            var jsonObject = JObject.Parse(content);
+
+            jsonObject[optionAsString] = userInput;
+            var updatedFile = jsonObject.ToString();
+
+            File.WriteAllText(_settings.FilePath, updatedFile);
+
+            return true;
+
+        }
+
+        private bool PathIsValid(string userInput)
+        {
+            if (Regex.IsMatch(userInput, _windowsFilePathSystemPattern)) return true;
             else
             {
                 _display.Show("Must be a valid absolute path");
@@ -84,7 +90,11 @@ namespace Concrete.Setup
 
                 return false;
             }
+        }
 
+        private bool IntervalIsValid(string userInput, out long milliseconds)
+        {
+            return long.TryParse(userInput, out milliseconds);
         }
     }
 }

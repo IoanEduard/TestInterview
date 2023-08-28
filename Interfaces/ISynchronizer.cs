@@ -3,7 +3,7 @@ namespace Interfaces.Synchronizer
 {
     public interface ISynchronizer
     {
-        Task ExecuteScheduledAsync();
+        Task ExecuteScheduledSynchronizationAsync();
         void ManualSync();
     }
 }

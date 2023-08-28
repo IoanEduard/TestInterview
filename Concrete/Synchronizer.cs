@@ -20,7 +20,7 @@ namespace Concrete.Synchronizer
             _count = 0;
         }
 
-        public async Task ExecuteScheduledAsync()
+        public async Task ExecuteScheduledSynchronizationAsync()
         {
             using CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             CancellationToken cancellationToken = cancellationTokenSource.Token;
@@ -43,7 +43,7 @@ namespace Concrete.Synchronizer
             {
                 Sync();
 
-                var message = $"Automatic synchronization done. Files ({_count}) updated!";
+                var message = _count == 0 ? "Files up to date" : $"Automatic synchronization done. Files ({_count}) updated!";
                 _display.Show(message);
                 _logger.LogAction(message);
                 _count = 0;

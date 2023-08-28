@@ -7,7 +7,7 @@ namespace task.models
         public string SourcePath { get; set; }
         public string ReplicaPath { get; set; }
         public string LoggerPath { get; set; }
-        public int Interval { get; set; }
+        public long Interval { get; set; }
         public string FilePath { get; } = @"assets/settings.json";
 
         public Settings()
