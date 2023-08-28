@@ -1,4 +1,4 @@
-namespace Interfaces.Setup
+namespace task.Interfaces.Setup
 {
     public interface ISetup
     {

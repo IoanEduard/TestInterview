@@ -1,5 +1,5 @@
 
-namespace Interfaces.Synchronizer
+namespace task.Interfaces.Synchronizer
 {
     public interface ISynchronizer
     {

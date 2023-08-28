@@ -1,9 +1,9 @@
-using Concrete.Menu.ApplicationMenu;
-using Interfaces.ApplicationMenu;
+using task.Concrete.Menu.ApplicationMenu;
+using task.Interfaces.ApplicationMenu;
 using task.Interfaces;
-using Interfaces.Synchronizer;
-using Interfaces.Logger;
-using Interfaces.Setup;
+using task.Interfaces.Synchronizer;
+using task.Interfaces.Logger;
+using task.Interfaces.Setup;
 using task.models;
 
 namespace task.Concrete.Menu

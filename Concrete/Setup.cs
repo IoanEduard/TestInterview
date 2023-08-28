@@ -1,13 +1,12 @@
 using System.Text.RegularExpressions;
-using enums;
-using Interfaces.Logger;
-using Interfaces.Setup;
+using task.Interfaces.Logger;
+using task.Interfaces.Setup;
 using Newtonsoft.Json.Linq;
 using task.Interfaces;
 using task.models;
 using static System.Console;
 
-namespace Concrete.Setup
+namespace task.Concrete.Setup
 {
     public class Setup : ISetup
     {

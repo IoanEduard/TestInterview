@@ -1,4 +1,4 @@
-namespace Interfaces.ApplicationMenu
+namespace task.Interfaces.ApplicationMenu
 {
     public interface IMenuMediator
     {

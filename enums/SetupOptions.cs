@@ -1,10 +1,7 @@
-namespace enums
+public enum SetupOptions
 {
-    public enum SetupOptions
-    {
-        Interval,
-        LoggerPath,
-        ReplicaPath,
-        SourcePath
-    }
+    Interval,
+    LoggerPath,
+    ReplicaPath,
+    SourcePath
 }

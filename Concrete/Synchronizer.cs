@@ -1,10 +1,10 @@
 
-using Interfaces.Logger;
-using Interfaces.Synchronizer;
+using task.Interfaces.Logger;
+using task.Interfaces.Synchronizer;
 using task.Interfaces;
 using task.models;
 
-namespace Concrete.Synchronizer
+namespace task.Concrete.Synchronizer
 {
     public class Synchronizer : ISynchronizer
     {

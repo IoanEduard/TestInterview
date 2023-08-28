@@ -1,11 +1,11 @@
 using System.Text;
-using Interfaces.ApplicationMenu;
-using Interfaces.Logger;
-using Interfaces.Synchronizer;
+using task.Interfaces.ApplicationMenu;
+using task.Interfaces.Logger;
+using task.Interfaces.Synchronizer;
 using task.Interfaces;
 using static System.Console;
 
-namespace Concrete.Menu.ApplicationMenu
+namespace task.Concrete.Menu.ApplicationMenu
 {
     public class MainMenu
     {

@@ -1,8 +1,8 @@
 using System.Diagnostics;
-using Interfaces.Logger;
+using task.Interfaces.Logger;
 using task.models;
 
-namespace Concrete.Logger
+namespace task.Concrete.Logger
 {
     public class Logger : ILogger
     {

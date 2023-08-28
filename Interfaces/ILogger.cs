@@ -1,4 +1,4 @@
-namespace Interfaces.Logger
+namespace task.Interfaces.Logger
 {
     public interface ILogger
     {
