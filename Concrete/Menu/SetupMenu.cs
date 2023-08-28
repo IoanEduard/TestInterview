@@ -16,7 +16,6 @@ namespace task.Concrete.Menu
         private Settings _settings;
         private IDisplay _display;
         private IMenuMediator _menuMediator;
-
         public SetupMenu(ILogger logger, ISetup setup, IDisplay display, IMenuMediator menuMediator, Settings settings)
         {
             _logger = logger;
@@ -28,7 +27,7 @@ namespace task.Concrete.Menu
 
         public void DisplayMenu()
         {
-             Clear();
+            Clear();
             _display.Show(OpenSetupMenu());
 
             while (_setupMenuVisible)
@@ -39,23 +38,23 @@ namespace task.Concrete.Menu
                     {
                         case (int)SetupMenuEnum.SourcePath:
                             if (_setup.SetSourcePath())
-                                SuccessAction();
-                            else FailedAction("Failed to update source file path!");
+                                SuccessAction("SourcePath updated successfully!");
+                            else FailedAction("Failed to SourcePath file path!");
                             break;
                         case (int)SetupMenuEnum.ReplicaPath:
                             if (_setup.SetReplicaPath())
-                                SuccessAction();
-                            else FailedAction("Failed to update replica file path!");
+                                SuccessAction("ReplicaPath updated successfully!");
+                            else FailedAction("Failed to ReplicaPath file path!");
                             break;
                         case (int)SetupMenuEnum.LogFilePath:
                             if (_setup.SetLoggerPath())
-                                SuccessAction();
-                            else FailedAction("Failed to update logger file path!");
+                                SuccessAction("LoggerPath updated successfully!");
+                            else FailedAction("Failed to update LoggerPath path!");
                             break;
                         case (int)SetupMenuEnum.Interval:
                             if (_setup.SetInterval())
-                                SuccessAction();
-                            else FailedAction("Failed to update interval");
+                                SuccessAction("Interval updated successfully!");
+                            else FailedAction("Failed to update the interval!");
                             break;
                         case (int)SetupMenuEnum.MainMenu:
                             _menuMediator.ShowMainMenu();
@@ -71,15 +70,16 @@ namespace task.Concrete.Menu
             }
         }
 
-        private void SuccessAction()
+        private void SuccessAction(string message)
         {
-            _logger.LogAction();
             _display.Show(OpenSetupMenu());
+            _logger.LogAction(message);
         }
 
         private void FailedAction(string message)
         {
             _display.Show(message);
+            _logger.LogAction(message);
         }
 
         private string OpenSetupMenu()

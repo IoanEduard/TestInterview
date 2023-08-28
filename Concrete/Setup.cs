@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using enums;
+using Interfaces.Logger;
 using Interfaces.Setup;
 using Newtonsoft.Json.Linq;
 using task.Interfaces;
@@ -12,10 +13,12 @@ namespace Concrete.Setup
     {
         private Settings _settings;
         private IDisplay _display;
-        public Setup(Settings settings, IDisplay display)
+        private ILogger _logger;
+        public Setup(Settings settings, IDisplay display, ILogger logger)
         {
             _settings = settings;
             _display = display;
+            _logger = logger;
         }
 
         public bool SetInterval()
@@ -41,33 +44,33 @@ namespace Concrete.Setup
         private bool UpdateJsonSettingsFile(SetupOptions option)
         {
             _display.Show("Only absolute paths accepted\n");
-            var value = ReadLine();
+            var userInput = ReadLine();
             var optionAsString = Enum.GetName(typeof(SetupOptions), option);
 
             var windowsFilePathSystemPattern = @"^[a-zA-Z]:\\(((?![<>:""/\\|?*]).)+((?<![ .])\\)?)*$";
 
-            if (Regex.IsMatch(value, windowsFilePathSystemPattern))
+            if (Regex.IsMatch(userInput, windowsFilePathSystemPattern))
             {
                 switch (option)
                 {
                     case SetupOptions.SourcePath:
-                        _settings.SourcePath = value;
+                        _settings.SourcePath = userInput;
                         break;
                     case SetupOptions.ReplicaPath:
-                        _settings.ReplicaPath = value;
+                        _settings.ReplicaPath = userInput;
                         break;
                     case SetupOptions.LoggerPath:
-                        _settings.LoggerPath = value;
+                        _settings.LoggerPath = userInput;
                         break;
                     case SetupOptions.Interval:
-                        _settings.Interval = value;
+                        _settings.Interval = userInput;
                         break;
                 }
 
                 var content = File.ReadAllText(_settings.FilePath);
                 var jsonObject = JObject.Parse(content);
 
-                jsonObject[optionAsString] = value;
+                jsonObject[optionAsString] = userInput;
                 var updatedFile = jsonObject.ToString();
 
                 File.WriteAllText(_settings.FilePath, updatedFile);
@@ -77,6 +80,8 @@ namespace Concrete.Setup
             else
             {
                 _display.Show("Must be a valid absolute path");
+                _logger.LogAction($"Tried to update an invalid path:\n the path was: {userInput}");
+
                 return false;
             }
 

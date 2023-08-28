@@ -1,17 +1,42 @@
+using System.Diagnostics;
 using Interfaces.Logger;
+using task.models;
 
 namespace Concrete.Logger
 {
     public class Logger : ILogger
     {
-        public void DisplayLogs()
+        private Settings _settings;
+        public Logger(Settings settings)
         {
-            Console.WriteLine("DisplayLogs works");
+            _settings = settings;
+            InitializeLogFile();
         }
 
-        public void LogAction()
+        public void DisplayLogs()
         {
-            Console.WriteLine("LogAction works");
+            Process.Start("notepad.exe", @_settings.LoggerPath + "\\log.txt");
+        }
+
+        public void LogAction(string message)
+        {
+            var path = @_settings.LoggerPath + "\\log.txt";
+            using (var sw = new StreamWriter(path, true))
+            {
+                sw.Write($"Log: {DateTime.Now} : {message}\n");
+            }
+        }
+
+        private void InitializeLogFile()
+        {
+            var path = @_settings.LoggerPath + "\\log.txt";
+            if (!File.Exists(path))
+            {
+                using (var sw = new StreamWriter(path, true))
+                {
+                    sw.Write($"Log file initialized at {DateTime.Now}!\n");
+                }
+            }
         }
     }
 }

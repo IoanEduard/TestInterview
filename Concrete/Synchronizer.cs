@@ -1,5 +1,7 @@
 
+using Interfaces.Logger;
 using Interfaces.Synchronizer;
+using task.Interfaces;
 using task.models;
 
 namespace Concrete.Synchronizer
@@ -7,9 +9,13 @@ namespace Concrete.Synchronizer
     public class Synchronizer : ISynchronizer
     {
         private Settings _settings;
-        public Synchronizer(Settings settings)
+        private ILogger _logger;
+        private IDisplay _display;
+        public Synchronizer(Settings settings, ILogger logger, IDisplay display)
         {
             _settings = settings;
+            _logger = logger;
+            _display = display;
         }
 
         public void ScheduledSync()
@@ -43,11 +49,16 @@ namespace Concrete.Synchronizer
                     try
                     {
                         File.Copy(fileToUpdate, destinationFilePath, true);
-                        // Log here
+
+                        var message = $"{file.Name} updated successfully!";
+                        _display.Show(message);
+                        _logger.LogAction(message);
                     }
                     catch (Exception ex)
                     {
-                        // log failure
+                        var exceptionMessage = $"Files failed to update!\nException:\n ";
+                        _display.Show(exceptionMessage + ex.Message);
+                        _logger.LogAction(exceptionMessage + ex);
                     }
                 }
 
@@ -57,10 +68,17 @@ namespace Concrete.Synchronizer
                     {
                         File.Delete(file.Path);
                         filesStatus.Remove(item.Key);
+
+                        var message = $"{file} from replica removed since is no longer in the source folder";
+                        _display.Show(message);
+                        _logger.LogAction(message);
                     }
                     catch (Exception ex)
                     {
-                        // log failure
+                        var message = $"Replica file failed to get deleted\nnException: ";
+                        _display.Show(message + ex.Message);
+                        _logger.LogAction(message + ex);
+
                     }
                 }
             }
@@ -68,12 +86,12 @@ namespace Concrete.Synchronizer
 
         private Dictionary<string, (SynchronizedFile, int)> PopulateFileStatusDictionary(List<SynchronizedFile> sourceFilesInfo, List<SynchronizedFile> replicaFilesInfo)
         {
-            var checkedFiles = new Dictionary<string, (SynchronizedFile, int)>();
+            var filesDueToUpdate = new Dictionary<string, (SynchronizedFile, int)>();
             for (var i = 0; i < sourceFilesInfo.Count; i++)
             {
                 // add all source files in the dictionary, by default they are the newwer version, hence marked with 1
-                if (!checkedFiles.ContainsKey(sourceFilesInfo[i].Name))
-                    checkedFiles.Add(sourceFilesInfo[i].Name, (sourceFilesInfo[i], 1));
+                if (!filesDueToUpdate.ContainsKey(sourceFilesInfo[i].Name))
+                    filesDueToUpdate.Add(sourceFilesInfo[i].Name, (sourceFilesInfo[i], 1));
             }
 
             for (var i = 0; i < replicaFilesInfo.Count; i++)
@@ -81,27 +99,27 @@ namespace Concrete.Synchronizer
                 var replicaFileKey = replicaFilesInfo[i].Name;
 
                 // if dictionary contains replica fileName
-                if (checkedFiles.ContainsKey(replicaFileKey))
+                if (filesDueToUpdate.ContainsKey(replicaFileKey))
                 {
                     // we check if file in source has changed
-                    if (checkedFiles[replicaFileKey].Item1.DateChanged == replicaFilesInfo[i].DateChanged)
+                    if (filesDueToUpdate[replicaFileKey].Item1.DateChanged == replicaFilesInfo[i].DateChanged)
                         // if not, clean up dictionary, we won't override the file in replica
-                        checkedFiles.Remove(replicaFileKey);
+                        filesDueToUpdate.Remove(replicaFileKey);
                 }
                 // if the source doesn't contain the replica file
                 else
                 {
                     // we add in dictionary marked as -1, we have to remove it from replica folder
-                    checkedFiles.Add(replicaFileKey, (replicaFilesInfo[i], -1));
+                    filesDueToUpdate.Add(replicaFileKey, (replicaFilesInfo[i], -1));
                 }
             }
 
-            return checkedFiles;
+            return filesDueToUpdate;
         }
 
         private List<SynchronizedFile> MapFiles(string[] files)
         {
-            List<SynchronizedFile> result = new List<SynchronizedFile>();
+            List<SynchronizedFile> synchronizedFiles = new List<SynchronizedFile>();
 
             foreach (string filePath in files)
             {
@@ -114,10 +132,10 @@ namespace Concrete.Synchronizer
                     DateChanged = fileInfo.LastWriteTime
                 };
 
-                result.Add(file);
+                synchronizedFiles.Add(file);
             }
 
-            return result;
+            return synchronizedFiles;
         }
 
     }
@@ -130,29 +148,3 @@ namespace Concrete.Synchronizer
     }
 }
 
-/*
-    So what I need to do.
-
-    Source folder needs to have replica folder with the same files
-        - Problems: content files in source might change, so I need to read all the lines too or just replace replica files everytime.
-                content files might get removed, so I need to save the file names when they get removed
-                new files will just get added on replica 
-
-    So I have a folder source,
-        My program might run, might not run but when it runs, I do a sync on start.
-            I run sync that will do the following thing.
-                if file x is found, x is updated with the source file
-                if file x is not found in the replica, x was added, I add in replica
-                if files not found in source, files were deleted
-
-                Use binary search, considering files are in alphabetical order.
-
-                generate a log entry for each case x was updated at hh/mm/yy,
-                                                   x was deleted
-                                                   x was added 
-
-        what the heck is md5
-
-    Problem when sync happens, paths should pe disallowed for changing till the sync is complete
-    Problem if I change the source directory, should I move all files too?
-*/

@@ -6,11 +6,11 @@ using task.Concrete;
 using task.Concrete.Menu;
 using task.models;
 
-var display = new Display();
 var settings = new Settings();
-var synchronizer = new Synchronizer(settings);
-var logger = new Logger();
-var setup = new Setup(settings, display);
+var display = new Display();
+var logger = new Logger(settings);
+var synchronizer = new Synchronizer(settings, logger, display);
+var setup = new Setup(settings, display, logger);
 
 var menuMediator = new MenuMediator(display, synchronizer, logger, setup, settings);
 
