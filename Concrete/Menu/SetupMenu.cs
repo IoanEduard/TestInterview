@@ -95,7 +95,7 @@ namespace task.Concrete.Menu
 
             sr.Append($"0. Set Source Path ({_settings.SourcePath})\n");
             sr.Append($"1. Set Replica path ({_settings.ReplicaPath})\n");
-            sr.Append($"2. Set Logger Path ({_settings.ReplicaPath})\n");
+            sr.Append($"2. Set Logger Path ({_settings.LoggerPath})\n");
             sr.Append($"3. Update interval ({_settings.Interval})\n");
             sr.Append($"4. Main Menu\n");
             sr.Append($"5. Exit\n");

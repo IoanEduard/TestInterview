@@ -1,4 +1,3 @@
-
 using task.Interfaces.Logger;
 using task.Interfaces.Synchronizer;
 using task.Interfaces;
@@ -132,7 +131,7 @@ namespace task.Concrete.Synchronizer
                 // if the source doesn't contain the replica file
                 else
                 {
-                    // we add in dictionary marked as -1, we have to remove it from replica folder
+                    // we add in dictionary marked as -1, we have to remove it from replica folder because it no longer exists in the source
                     filesDueToUpdate.Add(replicaFileKey, (replicaFilesInfo[i], -1));
                 }
             }

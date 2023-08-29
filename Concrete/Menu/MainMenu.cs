@@ -48,6 +48,7 @@ namespace task.Concrete.Menu.ApplicationMenu
                             _logger.DisplayLogs();
                             break;
                         case (int)MenuEnum.Exit:
+                            _logger.LogAction("\nProgram terminated!\n Synchronization unavailable!");
                             Environment.Exit(0);
                             Clear();
                             break;
