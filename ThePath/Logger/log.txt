@@ -121,3 +121,76 @@ Log: 8/29/2023 2:27:18 AM : Files up to date
 Log: 8/29/2023 2:27:22 AM : 
 Program terminated!
  Synchronization unavailable!
+Log: 8/29/2023 3:29:06 AM : Files up to date
+Log: 8/29/2023 3:29:12 AM : Files up to date
+Log: 8/29/2023 3:29:17 AM : Files up to date
+Log: 8/29/2023 3:29:22 AM : Files up to date
+Log: 8/29/2023 3:29:27 AM : Files up to date
+Log: 8/29/2023 3:29:29 AM : Interval updated successfully!
+Log: 8/29/2023 3:29:32 AM : Files up to date
+Log: 8/29/2023 3:29:42 AM : Files up to date
+Log: 8/29/2023 3:29:52 AM : Files up to date
+Log: 8/29/2023 3:30:02 AM : Files up to date
+Log: 8/29/2023 3:30:12 AM : Files up to date
+Log: 8/29/2023 3:30:22 AM : Files up to date
+Log: 8/29/2023 3:30:32 AM : Files up to date
+Log: 8/29/2023 3:30:42 AM : Files up to date
+Log: 8/29/2023 3:30:52 AM : Files up to date
+Log: 8/29/2023 3:31:02 AM : Files up to date
+Log: 8/29/2023 3:31:12 AM : Files up to date
+Log: 8/29/2023 3:31:22 AM : Files up to date
+Log: 8/29/2023 3:31:32 AM : Files up to date
+Log: 8/29/2023 3:31:42 AM : Files up to date
+Log: 8/29/2023 3:31:52 AM : Files up to date
+Log: 8/29/2023 3:32:02 AM : Files up to date
+Log: 8/29/2023 3:32:12 AM : Files up to date
+Log: 8/29/2023 3:32:22 AM : Files up to date
+Log: 8/29/2023 3:32:32 AM : Files up to date
+Log: 8/29/2023 3:32:42 AM : Files up to date
+Log: 8/29/2023 3:32:52 AM : Files up to date
+Log: 8/29/2023 3:33:02 AM : Files up to date
+Log: 8/29/2023 3:33:12 AM : Files up to date
+Log: 8/29/2023 3:33:22 AM : Files up to date
+Log: 8/29/2023 3:33:32 AM : Files up to date
+Log: 8/29/2023 3:33:42 AM : Files up to date
+Log: 8/29/2023 3:33:52 AM : Files up to date
+Log: 8/29/2023 3:34:02 AM : Files up to date
+Log: 8/29/2023 3:34:12 AM : Files up to date
+Log: 8/29/2023 3:34:22 AM : Files up to date
+Log: 8/29/2023 3:34:32 AM : Files up to date
+Log: 8/29/2023 3:34:42 AM : Files up to date
+Log: 8/29/2023 3:34:52 AM : Files up to date
+Log: 8/29/2023 3:35:02 AM : Files up to date
+Log: 8/29/2023 3:35:12 AM : Files up to date
+Log: 8/29/2023 3:35:22 AM : Files up to date
+Log: 8/29/2023 3:35:32 AM : Files up to date
+Log: 8/29/2023 3:53:25 AM : Files up to date
+Log: 8/29/2023 3:53:31 AM : Replica was synchronized manually
+Log: 8/29/2023 3:53:35 AM : Files up to date
+Log: 8/29/2023 3:53:42 AM : fil2.txt updated successfully!
+Log: 8/29/2023 3:53:42 AM : test.txt updated successfully!
+Log: 8/29/2023 3:53:42 AM : Replica was synchronized manually
+Log: 8/29/2023 3:53:45 AM : Automatic synchronization done. Files (2) updated!
+Log: 8/29/2023 3:53:51 AM : fil2.txt updated successfully!
+Log: 8/29/2023 3:53:51 AM : Replica was synchronized manually
+Log: 8/29/2023 3:53:55 AM : Automatic synchronization done. Files (1) updated!
+Log: 8/29/2023 3:54:05 AM : task.Concrete.Synchronizer.SynchronizedFile from replica removed since is no longer in the source folder
+Log: 8/29/2023 3:54:05 AM : Automatic synchronization done. Files (1) updated!
+Log: 8/29/2023 3:54:15 AM : Files up to date
+Log: 8/29/2023 3:54:25 AM : test.txt updated successfully!
+Log: 8/29/2023 3:54:25 AM : Automatic synchronization done. Files (1) updated!
+Log: 8/29/2023 3:54:30 AM : Replica was synchronized manually
+Log: 8/29/2023 3:54:35 AM : Files up to date
+Log: 8/29/2023 3:54:45 AM : Files up to date
+Log: 8/29/2023 3:54:55 AM : Files up to date
+Log: 8/29/2023 3:55:05 AM : Files up to date
+Log: 8/29/2023 3:55:15 AM : Files up to date
+Log: 8/29/2023 3:55:25 AM : Files up to date
+Log: 8/29/2023 3:55:35 AM : Files up to date
+Log: 8/29/2023 3:55:45 AM : Files up to date
+Log: 8/29/2023 3:55:55 AM : Files up to date
+Log: 8/29/2023 3:56:05 AM : Files up to date
+Log: 8/29/2023 3:56:15 AM : Files up to date
+Log: 8/29/2023 3:56:20 AM : 
+Program terminated!
+ Synchronization unavailable!

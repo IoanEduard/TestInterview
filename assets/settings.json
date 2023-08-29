@@ -2,5 +2,5 @@
   "SourcePath": "C:\\Users\\Eduard\\Desktop\\task\\ThePath\\Source",
   "ReplicaPath": "C:\\Users\\Eduard\\Desktop\\task\\ThePath\\Replica",
   "LoggerPath": "C:\\Users\\Eduard\\Desktop\\task\\ThePath\\Logger",
-  "Interval": "5000"
+  "Interval": "10000"
 }

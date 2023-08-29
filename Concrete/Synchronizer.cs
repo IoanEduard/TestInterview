@@ -91,7 +91,7 @@ namespace task.Concrete.Synchronizer
                         filesStatus.Remove(item.Key);
                         _count++;
 
-                        var message = $"{file} from replica removed since is no longer in the source folder";
+                        var message = $"{file.Name} from replica removed since is no longer in the source folder";
                         _display.Show(message);
                         _logger.LogAction(message);
                     }
